@@ -1,0 +1,114 @@
+﻿<div class="iso-countdown-container">
+    <h1 class="iso-countdown-title">
+        <span>ISO 20022 Release</span>
+        <span>Are you ready?!</span>
+    </h1>
+
+    <div class="iso-countdown">
+        <div class="iso-countdown-item">
+            <div id="iso-days" class="iso-countdown-value">00</div>
+            <div class="iso-countdown-label">Days</div>
+        </div>
+        <div class="iso-countdown-item">
+            <div id="iso-hours" class="iso-countdown-value">00</div>
+            <div class="iso-countdown-label">Hours</div>
+        </div>
+        <div class="iso-countdown-item">
+            <div id="iso-minutes" class="iso-countdown-value">00</div>
+            <div class="iso-countdown-label">Minutes</div>
+        </div>
+        <div class="iso-countdown-item">
+            <div id="iso-seconds" class="iso-countdown-value">00</div>
+            <div class="iso-countdown-label">Seconds</div>
+        </div>
+    </div>
+
+    <div id="iso-endMessage" class="iso-end-message"></div>
+</div>
+
+<script>
+    function updateCountdown() {
+        // Set the target date and time to July 14, 2025, 01:00:00 UTC
+        const targetDate = new Date('2025-07-14T01:00:00Z').getTime();
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference < 0) {
+            document.getElementById('iso-days').innerText = '00';
+            document.getElementById('iso-hours').innerText = '00';
+            document.getElementById('iso-minutes').innerText = '00';
+            document.getElementById('iso-seconds').innerText = '00';
+            document.getElementById('iso-endMessage').innerText = 'ISO 20022 Fedwire is LIVE!';
+            clearInterval(countdownInterval); // Stop the interval
+            return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('iso-days').innerText = String(days).padStart(2, '0');
+        document.getElementById('iso-hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('iso-minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('iso-seconds').innerText = String(seconds).padStart(2, '0');
+    }
+
+    // Update the countdown every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+</script>
+
+<style>
+    .iso-countdown-container {
+        font-family: sans-serif;
+        text-align: center;
+        color: #333;
+        display: flex; /* Enable flexbox for the container */
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally within the container */
+    }
+
+    .iso-countdown-title {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+        .iso-countdown-title span {
+            display: block; /* Makes each span take up its own line if needed */
+        }
+
+    .iso-countdown {
+        display: flex;
+        flex-direction: column; /* Stack the time units vertically */
+        align-items: center; /* Center the time units horizontally */
+        gap: 10px; /* Add some spacing between the time units */
+        margin-bottom: 20px; /* Add some space before the end message */
+    }
+
+    .iso-countdown-item {
+        background-color: #f4f4f4;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center text within each item */
+    }
+
+    .iso-countdown-value {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: red; /* Changed the color to red */
+    }
+
+    .iso-countdown-label {
+        font-size: 0.8em;
+        color: #777;
+        margin-top: 5px;
+    }
+
+    .iso-end-message {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: green;
+        margin-top: 20px;
+    }
+</style>
