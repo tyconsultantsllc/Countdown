@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 20022 Countdown</title>
+    <style>
+        .iso-countdown-container {
+            font-family: sans-serif;
+            text-align: center;
+            color: #333;
+        }
+
+        .iso-countdown-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .iso-countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .iso-countdown-item {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .iso-countdown-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .iso-countdown-label {
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .iso-end-message {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="iso-countdown-container">
+        <h1 class="iso-countdown-title">ISO 20022 Release. Are you ready?!</h1>
+
+        <div class="iso-countdown">
+            <div class="iso-countdown-item">
+                <div id="iso-days" class="iso-countdown-value">00</div>
+                <div class="iso-countdown-label">Days</div>
+            </div>
+            <div class="iso-countdown-item">
+                <div id="iso-hours" class="iso-countdown-value">00</div>
+                <div class="iso-countdown-label">Hours</div>
+            </div>
+            <div class="iso-countdown-item">
+                <div id="iso-minutes" class="iso-countdown-value">00</div>
+                <div class="iso-countdown-label">Minutes</div>
+            </div>
+            <div class="iso-countdown-item">
+                <div id="iso-seconds" class="iso-countdown-value">00</div>
+                <div class="iso-countdown-label">Seconds</div>
+            </div>
+        </div>
+
+        <div id="iso-endMessage" class="iso-end-message"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        function updateCountdown() {
+            // Set the target date and time to July 14, 2025, 00:00:00 UTC
+            const targetDate = new Date('2025-07-14T00:00:00Z').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById('iso-days').innerText = '00';
+                document.getElementById('iso-hours').innerText = '00';
+                document.getElementById('iso-minutes').innerText = '00';
+                document.getElementById('iso-seconds').innerText = '00';
+                document.getElementById('iso-endMessage').innerText = 'ISO 20022 is here!';
+                clearInterval(countdownInterval); // Stop the interval
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('iso-days').innerText = String(days).padStart(2, '0');
+            document.getElementById('iso-hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('iso-minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('iso-seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        // Update the countdown every second
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
