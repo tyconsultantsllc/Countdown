@@ -6,6 +6,7 @@
     <title>ISO 20022 Countdown</title>
     <style>
         .iso-countdown-container {
+            align: left;
             font-family: sans-serif;
             text-align: center;
             color: #333;
@@ -79,7 +80,7 @@
     <script>
         function updateCountdown() {
             // Set the target date and time to July 14, 2025, 00:00:00 UTC
-            const targetDate = new Date('2025-07-14T00:00:00Z').getTime();
+            const targetDate = new Date('2025-07-15T00:00:00Z').getTime();
             const now = new Date().getTime();
             const difference = targetDate - now;
 
